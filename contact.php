@@ -119,10 +119,10 @@ if (submitPressed() && validateInput("Email", $requiredArray)) {
 	<footer>
 		<div>
 			<p>
-				<a href="#" target="_blank"><img src="img/Twitch.png"></a>
-				<a href="https://www.linkedin.com/in/don-hansen-72394264" target="_blank"><img src="img/linkedin.svg"</a>
-				<a href="https://twitter.com/donhansen347" target="_blank"><img src="img/twitter.svg"</a>
-				<a href="contact.php"><img src="img/mail.svg"></a>
+				<a href="#" target="_blank"><img src="img/icons/social/Twitch.png"></a>
+				<a href="https://www.linkedin.com/in/don-hansen-72394264" target="_blank"><img src="img/icons/social/linkedin.svg"</a>
+				<a href="https://twitter.com/donhansen347" target="_blank"><img src="img/icons/social/twitter.svg"</a>
+				<a href="contact.php"><img src="img/icons/social/mail.svg"</a>
 			</p>
 		</div>
 	</footer>
