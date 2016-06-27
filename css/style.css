@@ -10,7 +10,6 @@ html {
 }
 
 body {
-	opacity: 1;
   text-align: center;
 	font-family: sans-serif;
 	font-family: 'Alegreya Sans', Verdana, Tahoma, sans-serif;
@@ -29,7 +28,6 @@ a {
 }
 
 ul {
-/* 	list-style: none; */
   padding-left: 0;
 	margin: 0;
 }
@@ -38,7 +36,6 @@ header {
   text-align: center;
 	margin: 0 auto;
 	width: 100%;
-/* 	background-color: red; */
 }
 
 	.name {
@@ -64,7 +61,7 @@ header {
 
 		@media (min-width: 375px) {
 			.nav li {
-				margin: 10x 5px;
+				margin: 10px 5px;
 				font-size: 1rem;
 				letter-spacing: 2px;	
 			}
@@ -74,7 +71,6 @@ header {
 				color: #333333;
 			}
 				.nav a:hover {
-				/* 	color: #000000; */
 					font-weight: 500;
 				}
 
@@ -118,7 +114,6 @@ header {
 
 /* Start Content Container */
 .content {
-/* 	background-color: black; */
 	font-size: 1.25rem;
 	line-height: 1.6;
 	width: 90%;
@@ -178,7 +173,6 @@ header {
 				float: left;
 				margin-right: 25px;
 				margin-top: 0;
-		/* 		margin-top: 0; */
 			}
 	}
 
@@ -191,11 +185,8 @@ header {
 }
 
 .twitchInfo > img {
-/* 	margin: 1rem; */
 	display: block;
 	width: 195px;
-/* 	clear: both; */
-/* 	margin: 5rem auto 1rem;	 */
 	margin: 2rem auto 2rem;
 }
 
@@ -237,7 +228,6 @@ header {
 		}
 
 		.twitchProjects {
-/* 			float: right; */
 			display: inline-block;
 			width: 200px;
 			margin: 0;
@@ -276,7 +266,6 @@ header {
 	}
 }
 
-/* Start Portfolio Content */
 .portfolio_display {
 	margin: 0 auto;
 	font-size: 0;
@@ -339,7 +328,6 @@ header {
 	.external {
 		margin: 15px;
 		padding: 0;
-/* 		width: 225px; */
 	}
 	
 }
@@ -353,7 +341,6 @@ header {
 	
 	.selectedProject {
 		width: 400px;
-/* 		text-align: left; */
 		float: left;
 		margin-right: 25px;
 	}
@@ -374,7 +361,6 @@ header {
 		padding: 5px;
 		margin-top: 5px;
 		margin-left: 25px;
-/* 		color: white; */
 		font-weight: bold;
 		letter-spacing: 1.5px;
 		position: relative;
@@ -396,45 +382,25 @@ header {
 .languages img {
 	width: 25px;
 }
+	.listHTML:before {
+		background: url("../img/icons/htmlicon.png") no-repeat 0 0;
+	}
 
-		.listHTML {
-			}
+	.listCSS:before {
+		background: url("../img/icons/cssicon.png") no-repeat 0 0;
+	}
 
-		.listHTML:before {
-			background: url("../img/icons/htmlicon.png") no-repeat 0 0;
-		}
-	
-		.listCSS {
-/* 				background-color: #0066ff; */
-			}
-		.listCSS:before {
-/* 			content: url('../img/icons/cssicon.png'); */
-			background: url("../img/icons/cssicon.png") no-repeat 0 0;
-		}
+	.listJavaScript:before {
+		background: url("../img/icons/javascripticon.png") no-repeat 0 0;
+	}
 
-		.listJavaScript {
-/* 				background-color: #cccc00; */
-			}
-		.listJavaScript:before {
-/* 			content: url('../img/icons/javascripticon.png'); */
-			background: url("../img/icons/javascripticon.png") no-repeat 0 0;
-		}
+	.listPHP:before {
+		background: url("../img/icons/phpicon.png") no-repeat 0 0;
+	}
 
-		.listPHP {
-/* 				background-color: #6699ff; */
-			}
-		.listPHP:before {
-/* 			content: url('../img/icons/phpicon.png'); */
-			background: url("../img/icons/phpicon.png") no-repeat 0 0;
-		}
-
-		.listMySQL {
-/* 				background-color: #00618A; */
-			}
-		.listMySQL:before {
-/* 			content: url('../img/icons/mysqlicon.png'); */
-			background: url("../img/icons/mysqlicon.png") no-repeat 0 0;
-		}
+	.listMySQL:before {
+		background: url("../img/icons/mysqlicon.png") no-repeat 0 0;
+	}
 
 @media (min-width: 900px) {
 	.languagesTitle {
@@ -486,20 +452,15 @@ header {
 	list-style-type: none;
 	width: 50%;
 	font-size: 1rem;
-/* 	font-size: 0; */
 }
 
 .liveSiteButton {
 	display: inline-block;
 	background-color: #ecb502;
 	padding: 10px;
-/* 	border-radius: 10px; */
 	font-weight: bold;
 	letter-spacing: 1.5px;
-/* 	margin-top: 20px; */
 	border: 1px solid #000;
-/* 	width: 50%; */
-/* 	font-size: 1rem; */
 	width: 100%;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
@@ -515,13 +476,9 @@ header {
 	display: inline-block;
 	background-color: #7d558f;
 	padding: 10px;
-/* 	border-radius: 10px; */
 	font-weight: bold;
 	letter-spacing: 1.5px;
-/* 	margin-top: 20px; */
 	border: 1px solid #000;
-/* 	width: 50%; */
-/* 	font-size: 1rem; */
 	width: 100%;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
@@ -563,7 +520,6 @@ header {
 }
 
 form {
-/* 	width: 100%; */
 	max-width: 425px;
 	margin: auto;
 }
@@ -581,12 +537,7 @@ label {
 	margin: 32px auto 7px;
 }
 
-input[type="text"], textarea {
-/* 	background-color: #f1f1f1; */
-}
-
 input, textarea, .errorMessage {
-/* 	margin-bottom: 25px; */
 	border-radius: 5px;
 	padding: 7px;
 	background-color: #f8f8f8;
@@ -604,11 +555,9 @@ input[type=submit] {
 	font-weight: 700;
 	margin-top: 42px;
 	padding: 14px;
-/* 	letter-spacing: 1px; */
 }
 
 input[type=submit]:hover {
-/* 	font-size: 1.2rem; */
 	letter-spacing: 1px;
 	transition-duration: 1s;
 	color: #ecb502;
@@ -623,14 +572,6 @@ input[type=submit]:hover {
 }
 
 /* End Contact Content */
-
-
-/* Rules for sizing the icon. */
-
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
 
 footer p {
 	border-top: 1px solid black;
