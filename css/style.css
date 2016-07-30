@@ -612,6 +612,17 @@ footer a:nth-child(1) {
 		clear: both;
 	}
 
+#success {
+	text-align: center;
+	color: #6dad00;
+	font-weight: 600;
+}
+
+.embededLiveStream {
+	height: 378px;
+	width: 100%;
+}
+
 
 
 

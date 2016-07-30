@@ -1,67 +1,100 @@
 <?php
 
-// CONFIG START
+// TO DO - USE FILTER_VAR INSTEAD OF FILTER_INPUT
+// ^^ This will let us easily pass filtered data back into the fields if they get any errors
 
-// Names of Required Fields
-$requiredArray = array
-	(
-		'Name' => true, 
-		'Email' => FILTER_VALIDATE_EMAIL, 
-		'Message' => true
-	);
+// ini_set('display_errors', 'On');
 
-// echo $requiredArray['Email'];
+// CLASSES //
+include('classes/ValidateInput.php');
+$validateInput = new ValidateInput();
 
+
+// FUNCTIONS //
 function getErrorMessage($errorCode) {
   switch ($errorCode) {
-    case "emptyName":
+    case "empty-name":
       $errorMessage = "Please fill out your name.";
       break;
-    case "emptyEmail":
+    case "empty-email":
       $errorMessage = "Please fill out your email.";
       break;
-    case "emptyMessage":
+    case "empty-message":
       $errorMessage = "What would you like to say?";
       break;
-		case "invalidEmail":
+		case "invalid-email":
 			$errorMessage = "Please enter a valid email address.";
 			break;
   }
 	return $errorMessage;
 }
 
-function validateInput($inputName, $requiredArray) {
-	// if input is empty
-	if (empty($_POST[$inputName])) {
-		// return that it is empty
-		return getErrorMessage("empty" . $inputName);
-		// if input is not empty
-	} elseif (!empty($_POST[$inputName])) {
-		// if array value does not have a php validation
-		if ($requiredArray[$inputName] !== true) {
-			// validate input
-			$filterInput = filter_input(INPUT_POST, $inputName, FILTER_VALIDATE_EMAIL);
-			
-			if ($filterInput === false) {
-				return getErrorMessage("invalid" . $inputName);
-			}
-		} elseif ($filterInput !== false) {
-			return true;
+
+if ($_POST['submit']) {
+	
+	$formName = $_POST['name'];
+	$formEmail = $_POST['email'];
+	$formMessage = $_POST['message'];
+
+	// REQUIRED CONFIG FOR INPUT VALIDATION
+	$requiredArray = array
+		(
+			'name' => true,
+			'email' => true,
+			'message' => true
+		);
+
+	$inputArray = array
+		(
+			'name' => $_POST['name'],
+			'email' => $_POST['email'],
+			'message' => $_POST['message']
+		);
+	
+	$emailInputName = 'email';
+	$validatedEmptyInput = TRUE;
+	$validatedEmailInput = TRUE;
+	
+	// RUN VALIDATION METHODS
+	$validatedEmptyInput = $validateInput->validateEmptyInput($inputArray, $requiredArray);
+	
+	if ($validatedEmptyInput['email']) {
+		$validatedEmailInput = $validateInput->validateEmail($emailInputName);
+	}
+	
+	// RUN ERROR MESSAGE BUILDER
+	$errorArray = array();
+	
+	foreach ($validatedEmptyInput as $inputName => $value) {
+		if (!$value) {
+			$errorCode = "empty-$inputName";
+			$errorArray[$inputName] = getErrorMessage($errorCode);
 		}
 	}
-}
-
-function submitPressed() {
-	if ($_POST['submit']) {
-		return true;
-	} else {
-		return false;
+	
+	if (!$validatedEmailInput) {
+		$errorCode = "invalid-$emailInputName";
+		$errorArray[$emailInputName] = getErrorMessage($errorCode); // this line isnt assigning proper key to value pair
 	}
-}
-
-if (submitPressed() && validateInput("Email", $requiredArray)) {
-	// I STILL NEED TO ESCAPE CHARACTERS BELOW
-// 	mail($_POST['Email'], 'Portfolio Contact Form', $_POST['Message']);
+	
+	// SUBMIT EMAIL IF NOTHING IS IN ERROR ARRAY
+	if (!$errorArray) {
+	// 	I STILL NEED TO ESCAPE CHARACTERS BELOW
+		$to = "donhansen347@gmail.com";
+		$from = $_POST['email'];
+		$subject = "Portfolio - Contact";
+		$message = $_POST['message'];
+		$headers = 
+			"From: $from " . "\r\n" . 
+			"Reply-To: $from" . "\r\n";
+		
+		mail($to, $subject, $message, $headers); // Currently does not work. Test on live server?
+		
+		unset($formName);
+		unset($formEmail);
+		unset($formMessage);
+	}
+	
 }
 
 ?>
@@ -99,29 +132,44 @@ if (submitPressed() && validateInput("Email", $requiredArray)) {
 		<h1 class="contentTitle">Get In Touch</h1>
     <section class="contactForm">
       <form action="" method="post">
-<!-- 				<i class="material-icons md-36">&#xE0BE;</i> -->
-      <!--   <fieldset>
-          <legend>Your basic info</legend> -->
+
+<?php
+
+if ( $_POST['submit'] && empty($errorArray) ) {
+	echo "<p id='success'>Your message has been sent successfully!</p>";
+}
+
+?>	
+
           <label for="contactName">Name</label>
-          <input type="text" name="Name" id="Name" placeholder="Full Name" value="<?php echo $_POST["Name"]; ?>" />
-<?php 
-	if (submitPressed() === true && validateInput("Name", $requiredArray) !== true) {
-		echo "<p class='errorMessage'>" . validateInput("Name", $requiredArray) . "</p>"; 
-	}
+          <input type="text" name="name" id="Name" placeholder="Full Name" value="<?php echo $formName ?>" />
+<?php
+
+$inputName = 'name';
+if ( array_key_exists($inputName, $errorArray) ) {
+	echo "<p class='errorMessage'>" . $errorArray[$inputName] . "</p>"; 
+}
+
 ?>
           <label for="contactEmail">Email</label>
-          <input type="text" name="Email" id="Email" placeholder="joe@gmail.com" value="<?php echo $_POST["Email"]; ?>" />
+          <input type="text" name="email" id="Email" placeholder="joe@gmail.com" value="<?php echo $formEmail ?>" />
 <?php 
-	if (submitPressed() && validateInput("Email", $requiredArray) !== null) {
-		echo "<p class='errorMessage'>" . validateInput("Email", $requiredArray) . "</p>"; 
-	}
+
+$inputName = 'email';
+if ( array_key_exists($inputName, $errorArray) ) {
+	echo "<p class='errorMessage'>" . $errorArray[$inputName] . "</p>"; 
+}
+
 ?>
           <label for="contactMessage">Message</label>
-          <textarea name="Message" id="Message" placeholder="Hey, how are you?"><?php echo $_POST["Message"]; ?></textarea>
+          <textarea name="message" id="Message" placeholder="Hey, how are you?"><?php echo $formMessage ?></textarea>
 <?php 
-	if (submitPressed() && validateInput("Message", $requiredArray) !== true) {
-		echo "<p class='errorMessage'>" . validateInput("Message", $requiredArray) . "</p>"; 
-	}
+
+$inputName = 'message';
+if ( array_key_exists($inputName, $errorArray) ) {
+	echo "<p class='errorMessage'>" . $errorArray[$inputName] . "</p>"; 
+}
+
 ?>
           <input type="submit" name="submit" value="Send" />
       </form>
@@ -130,10 +178,10 @@ if (submitPressed() && validateInput("Email", $requiredArray)) {
 	<footer>
 		<div>
 			<p>
-				<a href="#" target="_blank"><img src="img/icons/social/Twitch.png"></a>
-				<a href="https://www.linkedin.com/in/don-hansen-72394264" target="_blank"><img src="img/icons/social/linkedin.svg"</a>
-				<a href="https://twitter.com/donhansen347" target="_blank"><img src="img/icons/social/twitter.svg"</a>
-				<a href="contact.php"><img src="img/icons/social/mail.svg"</a>
+				<a href="http://www.twitch.tv/donthedeveloper" target="_blank"><img src="img/icons/social/Twitch.png"></a>
+				<a href="https://www.linkedin.com/in/don-hansen-72394264" target="_blank"><img src="img/icons/social/linkedin.svg"></a>
+				<a href="https://twitter.com/DeveloperDonTV" target="_blank"><img src="img/icons/social/twitter.svg"></a>
+				<a href="contact.php"><img src="img/icons/social/mail.svg"></a>
 			</p>
 		</div>
 	</footer>
