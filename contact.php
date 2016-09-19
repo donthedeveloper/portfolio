@@ -2,6 +2,7 @@
 
 // TO DO - USE FILTER_VAR INSTEAD OF FILTER_INPUT
 // ^^ This will let us easily pass filtered data back into the fields if they get any errors
+// ALSO TO DO - FILTER OUT FOR HEADER INJECTION - THEN USE HEADERS
 
 // ini_set('display_errors', 'On');
 
@@ -81,14 +82,20 @@ if ($_POST['submit']) {
 	if (!$errorArray) {
 	// 	I STILL NEED TO ESCAPE CHARACTERS BELOW
 		$to = "donhansen347@gmail.com";
-		$from = $_POST['email'];
+		$fromEmail = $_POST['email'];
+		$fromName = $_POST['name'];
 		$subject = "Portfolio - Contact";
-		$message = $_POST['message'];
-		$headers = 
-			"From: $from " . "\r\n" . 
-			"Reply-To: $from" . "\r\n";
+		$message = "From $fromName <$fromEmail>:";
+		$message .= "\r\n";
+		$message .= "\r\n";
+		$message .= $_POST['message'];
+		$headers = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";  
+		$headers .= 'From: '. $fromName . "\r\n";
+		$headers .= 'Reply-To: Info <info@email.com>' . "\r\n";
+		$headers .=  "X-Mailer: PHP/".phpversion();    
 		
-		mail($to, $subject, $message, $headers); // Currently does not work. Test on live server?
+		mail($to, $subject, $message); // Currently does not work. Test on live server?
 		
 		unset($formName);
 		unset($formEmail);
@@ -123,7 +130,6 @@ if ($_POST['submit']) {
     <h1 class="name">Don Hansen <i class="material-icons">&#xE01D;</i></h1>
     <ul class="nav">
       <li><a href="index.html">Portfolio</a></li>
-      <li><a href="http://blog.donhansen.me">Blog</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.php" class="selected">Contact</a></li>
     </ul>

@@ -269,6 +269,10 @@ header {
 .portfolio_display {
 	margin: 0 auto;
 	font-size: 0;
+/* 	max-width: 550px; */
+}
+
+.portfolio_display-max {
 	max-width: 550px;
 }
 
@@ -290,15 +294,17 @@ header {
 	.external {
 		width: 100%;
 		margin: 1rem 0;
+		max-width: 250px;
 	}
 
 	.external_mini {
-			margin: 4% 0 4% 4%;
-			width: 20%;
+		margin: 2%;
+		width: 20%;
+		max-width: 100px;
 	}
 
 		.external_mini:last-of-type {
-			margin-right: 4%;
+/* 			margin-right: 4%; */
 		}
 
 .projectTitle {
