@@ -298,9 +298,9 @@ header {
 	}
 
 	.external_mini {
-		margin: 2%;
-		width: 20%;
-		max-width: 100px;
+			margin: 2% 2% 2% 2%;
+			width: 20%;
+			max-width: 100px;
 	}
 
 		.external_mini:last-of-type {
